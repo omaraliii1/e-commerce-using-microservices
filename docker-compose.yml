@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5555 :5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+
+  auth:
+    container_name: auth_flask
+    build: ./auth
+    restart: always
+    environment:
+      DB_URL: 'postgresql://postgres:1234@db:5555/cloud'
+
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  product:
+    container_name: product_flask
+    build: ./product
+    restart: always
+    environment:
+      DB_URL: 'postgresql://postgres:1234@db:5432/cloud'
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+
+  account:
+    container_name: account_flask
+    build: ./account
+    restart: always
+    environment:
+      DB_URL: 'postgresql://postgres:1234@db:5432/cloud'
+
+    ports:
+      - "5002:5002"
+    depends_on:
+      - db
+
+ 
+volumes:
+  db_data:
+
+networks:
+  my_net:
+    driver: host

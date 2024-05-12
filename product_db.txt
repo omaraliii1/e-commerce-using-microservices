@@ -1,0 +1,9 @@
+INSERT INTO product (ID, name, description, Price, Quantity, image, is_active, category)
+VALUES 
+(1, 'Red Printed T-Shirt', 'Red elegant t-shirt', 50, 10, 'product-1.jpg', true, 'T-shirt'),
+(2, 'Black Sneakers', 'Black sporty sneakers', 50, 10, 'product-2.jpg', true, 'Sneakers'),
+(3, 'Grey Pants', 'Grey sporty pants', 50, 10, 'product-3.jpg', true, 'Pants'),
+(4, 'Navy Puma T-Shirt', 'Puma elegant t-shirt', 50, 10, 'product-4.jpg', true, 'T-shirt'),
+(5, 'Black Puma T-Shirt', 'Puma elegant t-shirt', 50, 10, 'product-5.jpg', true, 'T-shirt'),
+(6, '3x Printed Socks', 'Printed Socks', 50, 10, 'product-6.jpg', true, 'Socks'),
+(7, 'FOSSIL Black Watch', 'Black FOSSIL Watch', 50, 10, 'product-7.jpg', true, 'Watches');
