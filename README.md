@@ -51,9 +51,9 @@ Each service is isolated in a separate file, which includes:
 3. **Run Services with Docker:**
    - Start each service container, specifying the exposed ports:
      ```
-     docker run -d -p 5000:5000 omaraliii1/cloud:auth
-     docker run -d -p 5001:5001 omaraliii1/cloud:account
-     docker run -d -p 5002:5002 omaraliii1/cloud:product
+     docker run -d -p 5000:5000 omaraliii1/cloud:auth_v1
+     docker run -d -p 5001:5001 omaraliii1/cloud:account_v1
+     docker run -d -p 5002:5002 omaraliii1/cloud:product_v1
      ```
 
 4. **Test APIs Using Postman:**
