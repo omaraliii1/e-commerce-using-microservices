@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
   name: product
   labels:
@@ -19,4 +19,3 @@ spec:
         image: omaraliii1/cloud:product_v1
         ports:
         - containerPort: 5002
-        

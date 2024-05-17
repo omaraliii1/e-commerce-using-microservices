@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: product-configmap
-  labels:
-    app: product
-data:
-  DB_URL: 'postgresql://postgres:1234@192.168.49.2:30002/cloud'

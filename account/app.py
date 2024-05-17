@@ -8,11 +8,8 @@ from os import environ
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@192.168.49.2:30002/cloud'
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@172.17.0.2:5432/cloud'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@postgres:30002/cloud'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@192.168.49.2:30002/cloud'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
 
 app.config['SECRET_KEY'] = 'test123'
 app.config['JWT_SECRET_KEY'] = 'test123'
@@ -26,25 +23,11 @@ jwt = JWTManager(app)
 
 BLACKLIST = set()
 
-# def check_for_schema_changes():
-#     with app.app_context():
-#         inspector = db.inspect(db.engine)
-#         existing_tables = inspector.get_table_names()
-#         declared_tables = db.metadata.tables.keys()
-
-#         for table_name in declared_tables:
-#             if table_name not in existing_tables:
-#                 db.create_all()
-#                 print(f"Table '{table_name}' created.")
-
-# check_for_schema_changes()
-
 
 @jwt.token_in_blocklist_loader
 def is_token_revoked(jwt_header, jwt_payload):
     jti = jwt_payload['jti']
     return jti in BLACKLIST
-
 
 @app.route('/', methods=['GET'])
 @jwt_required()
@@ -64,7 +47,7 @@ def cart():
     current_user = User.query.get(current_user_id)
     if not current_user:
         return jsonify({'message': 'User not found', 'status': 'failed'}), 404
-    cart_items = current_user.carts  # Access the carts associated with the current user
+    cart_items = current_user.carts 
     subtotal = sum(item.product.price * item.quantity for item in cart_items)
     return jsonify({'cart_items': [item.serialize() for item in cart_items], 'subtotal': subtotal, 'status': 'success'}), 200
 

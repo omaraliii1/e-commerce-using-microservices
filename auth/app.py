@@ -7,12 +7,8 @@ from os import environ
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@192.168.49.2:30002/cloud'
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@172.17.0.2:5432/cloud'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@postgres:30002/cloud'
-
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@192.168.49.2:30002/cloud'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
 
 app.config['SECRET_KEY'] = 'test123'
 app.config['JWT_SECRET_KEY'] = 'test123'
