@@ -6,3 +6,5 @@ for file in $FILES; do
     echo "Applying $file ..."
     kubectl apply -f $file
 done
+
+echo "Done!"
