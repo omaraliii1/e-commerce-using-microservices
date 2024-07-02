@@ -14,7 +14,6 @@ jwt = JWTManager(app)
 
 BLACKLIST = set()
 
-
 @jwt.token_in_blocklist_loader
 def is_token_revoked(jwt_header, jwt_payload):
     jti = jwt_payload['jti']
