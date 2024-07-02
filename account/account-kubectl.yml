@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  labels:
+    app: account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+      - name: account
+        image: omaraliii1/ecommerce:account
+        ports:
+        - containerPort: 5001
+        env:
+        - name: SQLALCHEMY_DATABASE_URI
+          value: "postgresql://postgres:1234@postgres:5432/cloud"
+        - name: SECRET_KEY
+          value: test123
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account
+  labels:
+    app: account
+spec:
+  type: NodePort
+  ports:
+    - port: 5001
+      targetPort: 5001
+      nodePort: 30005
+  selector:
+    app: account
