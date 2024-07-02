@@ -2,6 +2,7 @@
 
 _This README provides a comprehensive guide to setting up, running, and deploying the e-commerce application, ensuring seamless integration with Docker, Docker-Compose, and Kubernetes for efficient microservices management and scalability._
 
+
 ---
 
 ## Overview
