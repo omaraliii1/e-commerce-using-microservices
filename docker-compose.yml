@@ -2,53 +2,56 @@ version: '3.8'
 
 services:
   db:
-    container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: cloud 
+      
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
   auth:
-    container_name: auth_flask
     build: ./auth
     restart: always
     environment:
-      DB_URL: 'postgresql://postgres:1234@db:5432/cloud'
-
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:1234@db:5432/cloud   
+      - SECRET_KEY=test123
     ports:
       - "5000:5000"
     depends_on:
       - db
 
   product:
-    container_name: product_flask
     build: ./product
     restart: always
     environment:
-      DB_URL: 'postgresql://postgres:1234@db:5432/cloud'
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:1234@db:5432/cloud   
+      - SECRET_KEY=test123
     ports:
       - "5002:5002"
     depends_on:
       - db
 
   account:
-    container_name: account_flask
     build: ./account
     restart: always
     environment:
-      DB_URL: 'postgresql://postgres:1234@db:5432/cloud'
-
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:1234@db:5432/cloud   
+      - SECRET_KEY=test123
     ports:
       - "5001:5001"
     depends_on:
       - db
-
- 
 volumes:
   db_data:
 
