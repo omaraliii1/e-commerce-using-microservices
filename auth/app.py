@@ -12,6 +12,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 db.init_app(app)
 jwt = JWTManager(app)
 
+
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
