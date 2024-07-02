@@ -11,7 +11,6 @@ This project is an e-commerce platform built using microservices architecture. I
 ### Technologies Used:
 - **Flask:** For building APIs.
 - **PostgreSQL:** Database management system.
-- **Pgadmin4:** PostgreSQL administration tool.
 - **Docker:** Containerization of services.
 - **Docker-compose:** Management of containers.
 - **Docker Hub:** Repository for Docker images.
