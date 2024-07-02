@@ -3,35 +3,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token ,jwt_required, get_jwt_identity, get_jwt, JWTManager
 from models import User
 from extensions import db
-from os import environ
-
+import os
 app = Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@192.168.49.2:30002/cloud'
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
-
-app.config['SECRET_KEY'] = 'test123'
-app.config['JWT_SECRET_KEY'] = 'test123'
-app.config['JWT_BLACKLIST_ENABLED'] = True
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 db.init_app(app)
 jwt = JWTManager(app)
-
-def check_for_schema_changes():
-    with app.app_context():
-        inspector = db.inspect(db.engine)
-        existing_tables = inspector.get_table_names()
-        declared_tables = db.metadata.tables.keys()
-
-        for table_name in declared_tables:
-            if table_name not in existing_tables:
-                db.create_all()
-                print(f"Table '{table_name}' created.")
-
-check_for_schema_changes()
-
 
 @app.route('/register', methods=['POST'])
 def register():
