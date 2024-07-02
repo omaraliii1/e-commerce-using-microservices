@@ -109,3 +109,7 @@ Each service is isolated in a separate file, which includes:
      ```
 
 ---
+
+## Architecture 
+
+![alt text](image.png)
